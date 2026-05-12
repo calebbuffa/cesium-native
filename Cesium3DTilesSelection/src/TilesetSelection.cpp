@@ -1035,9 +1035,10 @@ TraversalDetails visitTileIfNeeded(
   double tilePriority =
       computeTilePriority(tile, frameState.frustums, context.scratchDistances);
 
-  if (frameState.tileStateUpdater) {
-    frameState.tileStateUpdater(tile);
-  }
+  // This was originally done via
+  // this->_pTilesetContentManager->updateTileContent(tile, _options).
+  CESIUM_ASSERT(frameState.tileStateUpdater && "tileStateUpdater must be set");
+  frameState.tileStateUpdater(tile);
 
   CullResult cullResult{};
 
@@ -1131,7 +1132,7 @@ TraversalDetails visitTileIfNeeded(
   TraversalDetails details = visitTile(
       context,
       frameState,
-      depth + 1,
+      depth,
       meetsSse,
       ancestorMeetsSse,
       tile,
