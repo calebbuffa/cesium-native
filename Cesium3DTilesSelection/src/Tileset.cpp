@@ -423,12 +423,12 @@ const ViewUpdateResult& Tileset::updateViewGroup(
 
   if (!frustums.empty()) {
     viewGroup.startNewFrame(*this, frameState);
-    TileSelectionContext ctx{
+    TileSelectionContext context{
         this->_options,
         this->_externals,
         this->_distances,
         this->_childOcclusionProxies};
-    selectTiles(ctx, frameState, *pRootTile, result);
+    selectTiles(context, frameState, *pRootTile, result);
     viewGroup.finishFrame(*this, frameState);
   } else {
     result = ViewUpdateResult();

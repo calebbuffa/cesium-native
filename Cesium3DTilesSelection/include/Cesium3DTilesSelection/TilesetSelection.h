@@ -35,13 +35,22 @@ struct TileSelectionContext {
  * Populates `result` with the tiles to render this frame. The view group in
  * `frameState` also receives load queue updates.
  *
- * @param ctx Configuration, external dependencies, and scratch buffers.
+ * @pre `frameState.viewGroup.startNewFrame()` must be called before this
+ * function.
+ * @post `frameState.viewGroup.finishFrame()` must be called after this
+ * function.
+ * @pre `frameState.fogDensities` must have the same size as
+ * `frameState.frustums`.
+ *
+ * @param context Configuration, external dependencies, and scratch buffers.
  * @param frameState Per-frame view parameters and the view group to update.
  * @param rootTile Root of the tile hierarchy to traverse.
  * @param result Filled with the selected tiles and statistics for this frame.
+ *
+ * @private
  */
 CESIUM3DTILESSELECTION_API void selectTiles(
-    const TileSelectionContext& ctx,
+    const TileSelectionContext& context,
     const TilesetFrameState& frameState,
     Tile& rootTile,
     ViewUpdateResult& result);
